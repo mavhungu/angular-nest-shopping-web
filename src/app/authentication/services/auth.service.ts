@@ -15,7 +15,7 @@ export class AuthService {
   }
   constructor(private http: HttpClient) { }
 
-  login(data: any): void {
+  login(data: any): any {
     this.http.post<any>(`${environment.apiUrl}/auth/login`, data).subscribe({
       next: (response)  => {
         if(response && response.token) {
@@ -27,8 +27,7 @@ export class AuthService {
       }
     })
   }
-  signup(email:string, password: string): Observable<any> {
-    const registerData = { email, password };
+  signup(registerData: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/register`, registerData)
       .pipe(
         catchError(error => this.handleError(error))
